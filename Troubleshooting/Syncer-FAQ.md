@@ -16,7 +16,7 @@ tags:
 
 ## Syncer 业务逻辑
 
-![Syncer 业务逻辑，by: https://github.com/BigerCAP](../Media/180101-Syner-faq.svg)
+![Syncer 业务逻辑，by: https://github.com/BigerCAP](../Media/Troubleshooting/180101-Syncer-FAQ.svg)
 
 - Syncer 是个同步工具，Syncer 中分三个部分
   - **上游** binlog 数据读取：这是个单线程模拟读取 MySQL binlog 内容，Syncer 针对 from binlog 有一定的 [约束检查](https://github.com/pingcap/docs-cn/blob/master/tools/syncer.md#syncer-%E5%90%8C%E6%AD%A5%E5%89%8D%E6%A3%80%E6%9F%A5)，检查通过后开始拉取数据并进行数据预处理工作
@@ -142,9 +142,9 @@ tags:
     +-----------------+------------+
     ```
 
-### Case 5 ：MySQL A > B > C > Syncer 同步场景注意事项
+### Case 7 ：MySQL A > B > C > Syncer 同步场景注意事项
 
-![MySQL 主从从架构](../Media/Troubleshooting/Syncer-FAQ-181123.svg)
+![MySQL 主从从架构](../Media/Troubleshooting/180101-Syncer-FAQ-181123.svg)
 
 - MySQL 生产环境数据环境通过 MySQL “主从从” 架构实现高可用灾备模式
   - 在该模式后面放置 syncer 工具同步数据到 TiDB Cluster, 如果未开启 log slave update 参数，会导致数据不一致。
