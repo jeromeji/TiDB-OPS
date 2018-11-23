@@ -142,6 +142,22 @@ tags:
     +-----------------+------------+
     ```
 
+### Case 5 ：MySQL A > B > C > Syncer 同步场景注意事项
+
+![MySQL 主从从架构](../Media/Troubleshooting/Syncer-FAQ-181123.svg)
+
+- MySQL 生产环境数据环境通过 MySQL “主从从” 架构实现高可用灾备模式
+  - 在该模式后面放置 syncer 工具同步数据到 TiDB Cluster, 如果未开启 log slave update 参数，会导致数据不一致。
+  - 该参数具体功能以及主从之间其他参数可以查看 MySQL 官网 [17.1.6.3 Replication Slave Options and Variables](https://dev.mysql.com/doc/refman/8.0/en/replication-options-slave.html "TiDB-OPS, --log-slave-updates , MySQL 主从从模式")
+- 该参数功能
+  - 从库只开启 log-bin 功能，不使用 log-slave-updates 功能
+    - 从库在主库复制的数据，不会写入 log-bin 文件
+    - 直接向从库写入数据时，会写入 log-bin 文件
+    - 此时 syncer 读到的数据并不是最终完整数据
+  - 从库开启 log-slave-updates 功能
+    - 从库从主库复制的数据会写入 log-bin 日志文件里
+    - 此时 syncer 可读到最终完整数据
+
 ------
 
 ## 已 fixbug
