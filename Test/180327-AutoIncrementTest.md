@@ -278,3 +278,65 @@ TiDB 节点预取3w
 
 访问到某个结点，比A，在它超出0-3w之前，就使用这个范围内的
 超了，就成了6-9w
+
+
+## 测试 Alert Table AUTO_INCREMENT
+
+```SQL
+MySQL [test]> show create table t1\G;
+*************************** 1. row ***************************
+       Table: t1
+Create Table: CREATE TABLE `t1` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `a` bigint(20) NOT NULL,
+  `b` int(11) NOT NULL,
+  `due_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_a_b` (`a`,`b`),
+  KEY `idx_a` (`a`),
+  KEY `idx_b` (`b`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=540001
+1 row in set (0.00 sec)
+
+ERROR: No query specified
+
+MySQL [test]> alter table t1 AUTO_INCREMENT=123;
+Query OK, 0 rows affected (0.47 sec)
+
+MySQL [test]> show create table t1\G;
+*************************** 1. row ***************************
+       Table: t1
+Create Table: CREATE TABLE `t1` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `a` bigint(20) NOT NULL,
+  `b` int(11) NOT NULL,
+  `due_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_a_b` (`a`,`b`),
+  KEY `idx_a` (`a`),
+  KEY `idx_b` (`b`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=540001
+1 row in set (0.00 sec)
+
+ERROR: No query specified
+
+MySQL [test]> alter table t1 AUTO_INCREMENT=540002;
+Query OK, 0 rows affected (0.58 sec)
+
+MySQL [test]> show create table t1\G;
+*************************** 1. row ***************************
+       Table: t1
+Create Table: CREATE TABLE `t1` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `a` bigint(20) NOT NULL,
+  `b` int(11) NOT NULL,
+  `due_date` date DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_a_b` (`a`,`b`),
+  KEY `idx_a` (`a`),
+  KEY `idx_b` (`b`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=540002
+1 row in set (0.00 sec)
+
+ERROR: No query specified
+```

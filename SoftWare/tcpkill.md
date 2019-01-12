@@ -3,7 +3,7 @@ title: kill tcp connect
 date: 2018-05-05 21:40:52
 updated: 2018-05-06 21:40:52
 categories:
-  - Case
+  - SoftWare
 tags:
   - tcpkill
 ---

@@ -16,44 +16,48 @@ tags:
 
 ### 支持的 DDL type
 
-- [DDL type](https://github.com/pingcap/tidb/blob/master/ddl/ddl_worker.go#L344)
-
 ```go
-	switch job.Type {
+switch job.Type {
 	case model.ActionCreateSchema:
-		ver, err = d.onCreateSchema(t, job)
+		ver, err = onCreateSchema(t, job)
 	case model.ActionDropSchema:
-		ver, err = d.onDropSchema(t, job)
+		ver, err = onDropSchema(t, job)
 	case model.ActionCreateTable:
-		ver, err = d.onCreateTable(t, job)
+		ver, err = onCreateTable(d, t, job)
 	case model.ActionDropTable:
-		ver, err = d.onDropTable(t, job)
+		ver, err = onDropTable(t, job)
+	case model.ActionDropTablePartition:
+		ver, err = onDropTablePartition(t, job)
 	case model.ActionAddColumn:
-		ver, err = d.onAddColumn(t, job)
+		ver, err = onAddColumn(d, t, job)
 	case model.ActionDropColumn:
-		ver, err = d.onDropColumn(t, job)
+		ver, err = onDropColumn(t, job)
 	case model.ActionModifyColumn:
-		ver, err = d.onModifyColumn(t, job)
-	case model.ActionAddIndex:
-		ver, err = d.onCreateIndex(t, job)
-	case model.ActionDropIndex:
-		ver, err = d.onDropIndex(t, job)
-	case model.ActionAddForeignKey:
-		ver, err = d.onCreateForeignKey(t, job)
-	case model.ActionDropForeignKey:
-		ver, err = d.onDropForeignKey(t, job)
-	case model.ActionTruncateTable:
-		ver, err = d.onTruncateTable(t, job)
-	case model.ActionRebaseAutoID:
-		ver, err = d.onRebaseAutoID(t, job)
-	case model.ActionRenameTable:
-		ver, err = d.onRenameTable(t, job)
+		ver, err = onModifyColumn(t, job)
 	case model.ActionSetDefaultValue:
-		ver, err = d.onSetDefaultValue(t, job)
+		ver, err = onSetDefaultValue(t, job)
+	case model.ActionAddIndex:
+		ver, err = w.onCreateIndex(d, t, job)
+	case model.ActionDropIndex:
+		ver, err = onDropIndex(t, job)
+	case model.ActionRenameIndex:
+		ver, err = onRenameIndex(t, job)
+	case model.ActionAddForeignKey:
+		ver, err = onCreateForeignKey(t, job)
+	case model.ActionDropForeignKey:
+		ver, err = onDropForeignKey(t, job)
+	case model.ActionTruncateTable:
+		ver, err = onTruncateTable(d, t, job)
+	case model.ActionRebaseAutoID:
+		ver, err = onRebaseAutoID(d.store, t, job)
+	case model.ActionRenameTable:
+		ver, err = onRenameTable(t, job)
 	case model.ActionShardRowID:
-		ver, err = d.onShardRowID(t, job)
+		ver, err = onShardRowID(t, job)
 	case model.ActionModifyTableComment:
-		ver, err = d.onModifyTableComment(t, job)
+		ver, err = onModifyTableComment(t, job)
+	case model.ActionAddTablePartition:
+		ver, err = onAddTablePartition(t, job)
 ```
 
 ### DDL 工作过程
