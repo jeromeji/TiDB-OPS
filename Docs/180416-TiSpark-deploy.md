@@ -118,7 +118,7 @@ tags:
   ```
 
 2. 通过 TiSpark-SQL 运行
-  - 下载 TiSpark-SQL [传送门](https://github.com/pingcap/tispark/blob/master/core/scripts/tispark-sql)
+  - 下载 TiSpark-SQL [传送门](https://github.com/pingcap/tispark/tree/master/core/scripts/tispark-sql)
   - 将文件保存导 `{{deploy}}/spark/bin` 下，赋予执行权限
 - 登陆 172.16.10.64 机器
 - 进入目录 `cd /data3/deploy/spark/bin`
@@ -128,7 +128,7 @@ tags:
 ### 第三方工具连接 TiSpark
 
 - 可以使用 jdbc 连接 TiSpark 服务
-- 下载 ThriftServer 脚本 [传送门](https://github.com/pingcap/tispark/tree/master/scripts)
+- 下载 ThriftServer 脚本 [传送门](https://github.com/pingcap/tispark/tree/master/core/scripts)
   - 将脚本复制到 {{deploy_dir}}/scripts/start-tithriftserver.sh
   - 执行脚本启动 jdbc 服务器
 - ThriftServer 提供 JDBC 访问入口, 适合 SQL workbench 之类的辅助 GUI 访问, 也可以使用 Hive Beeline 工具（但是实测下来仅限于 Hive 1.2 的 Beeline）
