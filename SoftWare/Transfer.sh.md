@@ -99,11 +99,11 @@ $ curl -X PUT --upload-file nhgbhhj https://transfer.sh/test.txt/virustotal
 
 > 如果是使用上面步骤的启动命令，可通过 `http://IP:3000/` 打开网页，如下图
 
-![transfer-windows-upload](/Media/180802-transfer-windows-upload.jpg)
+![transfer-windows-upload](/Media/Software/180802-transfer-windows-upload.jpg)
 
-![transfer-windows-upload](/Media/180802-transfer-windows-upload-2.jpg)
+![transfer-windows-upload](/Media/Software/180802-transfer-windows-upload-2.jpg)
 
-![transfer-windows-upload](/Media/180802-transfer-windows-upload-3.jpg)
+![transfer-windows-upload](/Media/Software/180802-transfer-windows-upload-3.jpg)
 
 ## FAQ
 
