@@ -4,7 +4,7 @@ toc: true
 tags:
   - transfer.sh
 date: 2009-01-01 21:40:52
-updated: 2009-01-01 21:40:52
+updated: 2019-02-15 16:55:52
 categories:
   - software
 ---
@@ -36,11 +36,22 @@ Transfer.sh 支持 S3 协议的对象云存储 (Amazon S3)、谷歌网盘 (Googl
   - `docker images`
 - 启动 `transfer.sh` 服务前准备
   - 需要使用 root 用户执行 docker run 命令
-  - 需要提前关闭 selinux，使用 getenforce 查看 selinux 状态；如果未开启状态，使用 `setenforce 0` 临时关闭 selinux
+  - 需要提前关闭 selinux，使用 getenforce 查看 selinux 状态；如果开启状态，使用 `setenforce 0` 临时关闭 selinux
   - 在 centos 7 创建 `/data/transfer_dir/` 数据目录，稍后映射到 docker 容器内
 - 启动 `transfer.sh` 服务
   - 命令中 -d 为后台运行，初次运行时建议去掉；启动成功后再次添加，如果第二次启动失败，可以执行 `docker rm -f transfer`
-  - `docker run --publish 3000:8080 --name transfer -d -v /data/transfer_dir/:/tmp/ dutchcoders/transfer.sh:latest --provider local --basedir /tmp/`
+  - `docker run --publish 8000:8080 --name transfer -d -v /data/transfer_dir/:/tmp/ registry.docker-cn.com/dutchcoders/transfer.sh:latest --provider local --basedir /tmp/`
+    - docker 容器内默认监听 8080 端口，通过 8000 端口映射后对外提供服务
+- 启动成功后，使用 `docker logs transfer` 可以看到以下日志信息
+
+    ```logs
+    [root@Jeff-VM1 data]# docker logs 298d8dbd3cdf
+    2019/02/15 08:41:57 Transfer.sh server started.
+    using temp folder: /tmp/
+    using storage provider: local
+    2019/02/15 08:41:57 listening on port: :8080
+    2019/02/15 08:41:57 ---------------------------
+    ```
 
 ### Transfer.sh 命令行参数
 
